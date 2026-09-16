@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso Restringido</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #0f172a;
+      color: #f8fafc;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card {
+      background-color: #1e293b;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      background-color: #0f172a;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .error {
+      color: #ef4444;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    #revelado {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #revelado img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla de Login -->
+  <div class="card" id="login">
+    <h2>Ingresa la contraseña</h2>
+    <input type="password" id="pw" placeholder="Escribe aquí...">
+    <button onclick="validar()">Entrar</button>
+    <p class="error" id="error-msg">Contraseña incorrecta</p>
+  </div>
+
+  <!-- Pantalla de la foto (oculta al inicio) -->
+  <div class="card" id="revelado">
+    <h2>¡ACCESO CONCEDIDO!</h2>
+    <!-- Reemplaza la URL de abajo por la imagen de tu broma -->
+    <img src="https://via.placeholder.com/400x300.png?text=AQUI+VA+TU+FOTO" alt="Broma">
+  </div>
+
+  <script>
+    function validar() {
+      const input = document.getElementById('pw').value;
+      const loginCard = document.getElementById('login');
+      const reveladoCard = document.getElementById('revelado');
+      const errorMsg = document.getElementById('error-msg');
+
+      // Comprueba si la contraseña es BIGBRO (acepta minúsculas o mayúsculas)
+      if (input.trim().toUpperCase() === "BIGBRO") {
+        loginCard.style.display = "none";
+        reveladoCard.style.display = "flex";
+      } else {
+        errorMsg.style.display = "block";
+      }
+    }
+
+    // Permite presionar Enter en el teclado
+    document.getElementById('pw').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        validar();
+      }
+    });
+  </script>
+
+</body>
+</html>
