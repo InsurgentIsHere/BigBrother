@@ -125,12 +125,21 @@
       border: 1px solid #222222;
       pointer-events: none;
     }
+
+    /* Ocultamos totalmente el reproductor de YouTube */
+    #yt-player {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
 
-  <!-- Pista oficial de Lucas Pope: Glory to Arstotzka -->
-  <audio id="audio-broma" src="https://ia800705.us.archive.org/27/items/PapersPleaseOSTGloryToArstotzka/Papers%2C%20Please%20-%20Glory%20to%20Arstotzka.mp3" preload="auto" loop></audio>
+  <!-- Contenedor oculto para la API de YouTube -->
+  <div id="yt-player"></div>
 
   <!-- Escena 1: Login -->
   <div class="container" id="login">
@@ -159,21 +168,27 @@
   </div>
 
   <script>
-    const audio = document.getElementById('audio-broma');
+    let player;
 
-    function iniciarAudio() {
-      if (audio.paused) {
-        audio.play().catch(err => console.log("Permiso de audio denegado:", err));
-      }
+    // Cargar la API de reproductor de YouTube de forma asíncrona
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('yt-player', {
+        videoId: 'uTV8Ge2IBgo', // El ID exacto de tu vídeo
+        playerVars: {
+          'autoplay': 0,
+          'controls': 0,
+          'loop': 1,
+          'playlist': 'uTV8Ge2IBgo'
+        }
+      });
     }
-    
-    // Activa el audio con cualquier primera interacción
-    document.addEventListener('click', iniciarAudio, { once: true });
-    document.addEventListener('keydown', iniciarAudio, { once: true });
-    document.addEventListener('touchstart', iniciarAudio, { once: true });
 
     function validar() {
-      iniciarAudio();
       const input = document.getElementById('pw').value;
       const loginCard = document.getElementById('login');
       const reveladoCard = document.getElementById('revelado');
@@ -182,6 +197,11 @@
       if (input.trim().toUpperCase() === "BIGBRO") {
         loginCard.style.display = "none";
         reveladoCard.style.display = "flex";
+
+        // Reproducir la música de YouTube al aceptar la contraseña
+        if (player && typeof player.playVideo === 'function') {
+          player.playVideo();
+        }
       } else {
         errorMsg.style.display = "block";
       }
