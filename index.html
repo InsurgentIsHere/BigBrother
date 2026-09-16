@@ -129,8 +129,8 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <!-- Audio directo de suspense y tensión -->
-  <audio id="audio-broma" src="https://www.fesliyanstudios.com/play-mp3/25" preload="auto" loop></audio>
+  <!-- Audio de Papers, Please (Glory to Arstotzka) -->
+  <audio id="audio-broma" src="https://ia800108.us.archive.org/31/items/gdps-2.2-song-657601/657601.mp3" preload="auto" loop></audio>
 
   <!-- Escena 1: Login -->
   <div class="container" id="login">
@@ -160,7 +160,6 @@
   <script>
     const audio = document.getElementById('audio-broma');
 
-    // Inicia el sonido en cuanto el usuario toca o hace clic en la pantalla (requerido por navegadores)
     function iniciarAudio() {
       if (audio.paused) {
         audio.play().catch(err => console.log(err));
@@ -172,7 +171,7 @@
     document.addEventListener('touchstart', iniciarAudio, { once: true });
 
     function validar() {
-      iniciarAudio(); // Asegura la reproducción si no había sonado
+      iniciarAudio();
       const input = document.getElementById('pw').value;
       const loginCard = document.getElementById('login');
       const reveladoCard = document.getElementById('revelado');
