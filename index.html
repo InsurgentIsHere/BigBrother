@@ -129,8 +129,8 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <!-- Etiqueta de audio oculta -->
-  <audio id="audio-broma" src="[https://upload.wikimedia.org/wikipedia/commons/6/6f/Suspense_Orchestral_Music.ogg]" preload="auto" loop></audio>
+  <!-- Audio directo de suspense y tensión -->
+  <audio id="audio-broma" src="https://www.fesliyanstudios.com/play-mp3/25" preload="auto" loop></audio>
 
   <!-- Escena 1: Login -->
   <div class="container" id="login">
@@ -158,21 +158,29 @@
   </div>
 
   <script>
+    const audio = document.getElementById('audio-broma');
+
+    // Inicia el sonido en cuanto el usuario toca o hace clic en la pantalla (requerido por navegadores)
+    function iniciarAudio() {
+      if (audio.paused) {
+        audio.play().catch(err => console.log(err));
+      }
+    }
+    
+    document.addEventListener('click', iniciarAudio, { once: true });
+    document.addEventListener('keydown', iniciarAudio, { once: true });
+    document.addEventListener('touchstart', iniciarAudio, { once: true });
+
     function validar() {
+      iniciarAudio(); // Asegura la reproducción si no había sonado
       const input = document.getElementById('pw').value;
       const loginCard = document.getElementById('login');
       const reveladoCard = document.getElementById('revelado');
       const errorMsg = document.getElementById('error-msg');
-      const audio = document.getElementById('audio-broma');
 
       if (input.trim().toUpperCase() === "BIGBRO") {
         loginCard.style.display = "none";
         reveladoCard.style.display = "flex";
-        
-        // Reproduce el audio cuando acierta la contraseña
-        audio.play().catch(function(error) {
-          console.log("El navegador bloqueó el audio:", error);
-        });
       } else {
         errorMsg.style.display = "block";
       }
