@@ -129,8 +129,8 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <!-- Tema oficial in-game de Papers, Please (Glory to Arstotzka) -->
-  <audio id="audio-broma" src="https://vgmsite.com/soundtracks/papers-please-ost/yvubvmsb/1.%20Glory%20to%20Arstotzka%20%28Main%20Theme%29.mp3" preload="auto" loop></audio>
+  <!-- Pista oficial de Lucas Pope: Glory to Arstotzka -->
+  <audio id="audio-broma" src="https://ia800705.us.archive.org/27/items/PapersPleaseOSTGloryToArstotzka/Papers%2C%20Please%20-%20Glory%20to%20Arstotzka.mp3" preload="auto" loop></audio>
 
   <!-- Escena 1: Login -->
   <div class="container" id="login">
@@ -163,11 +163,11 @@
 
     function iniciarAudio() {
       if (audio.paused) {
-        audio.play().catch(err => console.log(err));
+        audio.play().catch(err => console.log("Permiso de audio denegado:", err));
       }
     }
     
-    // El navegador necesita un primer clic/toque en la pantalla para iniciar el sonido
+    // Activa el audio con cualquier primera interacción
     document.addEventListener('click', iniciarAudio, { once: true });
     document.addEventListener('keydown', iniciarAudio, { once: true });
     document.addEventListener('touchstart', iniciarAudio, { once: true });
